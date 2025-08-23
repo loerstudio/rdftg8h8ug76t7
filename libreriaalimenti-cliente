@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Libreria Alimenti</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #EF4444;
+            --background-color: #000000;
+            --surface-color: #1F2937;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        .active-tab {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+        .inactive-tab {
+            color: var(--text-secondary);
+        }
+        .nav-item-active {
+            color: var(--primary-color);
+            border-top: 2px solid var(--primary-color);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-20">
+<div class="p-4">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-4xl font-bold">Libreria</h1>
+<button class="bg-[var(--surface-color)] p-2 rounded-full">
+<span class="material-icons">search</span>
+</button>
+</div>
+<div class="flex border-b border-gray-700 mb-6">
+<button class="flex-1 py-3 text-center active-tab font-semibold">Alimenti</button>
+<button class="flex-1 py-3 text-center inactive-tab">Integratori</button>
+<button class="flex-1 py-3 text-center inactive-tab">I miei alimenti</button>
+</div>
+<div class="space-y-4">
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold">Petto di Pollo</h2>
+<p class="text-sm text-[var(--text-secondary)]">100g • 25g Proteine • 3g Grassi</p>
+</div>
+<button>
+<span class="material-icons text-gray-400">chevron_right</span>
+</button>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold">Riso Basmati</h2>
+<p class="text-sm text-[var(--text-secondary)]">100g • 8g Proteine • 78g Carboidrati</p>
+</div>
+<button>
+<span class="material-icons text-gray-400">chevron_right</span>
+</button>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold">Salmone</h2>
+<p class="text-sm text-[var(--text-secondary)]">100g • 20g Proteine • 13g Grassi</p>
+</div>
+<button>
+<span class="material-icons text-gray-400">chevron_right</span>
+</button>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold">Uova</h2>
+<p class="text-sm text-[var(--text-secondary)]">1 grande • 6g Proteine • 5g Grassi</p>
+</div>
+<button>
+<span class="material-icons text-gray-400">chevron_right</span>
+</button>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold">Avena</h2>
+<p class="text-sm text-[var(--text-secondary)]">100g • 17g Proteine • 66g Carboidrati</p>
+</div>
+<button>
+<span class="material-icons text-gray-400">chevron_right</span>
+</button>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex justify-between items-center">
+<div>
+<h2 class="text-xl font-bold">Mandorle</h2>
+<p class="text-sm text-[var(--text-secondary)]">30g • 6g Proteine • 14g Grassi</p>
+</div>
+<button>
+<span class="material-icons text-gray-400">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2">
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">fitness_center</span>
+<span class="block text-xs">Workout</span>
+</a>
+<a class="text-center nav-item-active px-4 pt-2" href="#">
+<span class="material-icons">restaurant</span>
+<span class="block text-xs">Alimentazione</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">trending_up</span>
+<span class="block text-xs">Progressi</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+</div>
+
+</body></html>
