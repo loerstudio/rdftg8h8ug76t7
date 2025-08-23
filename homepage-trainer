@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trainer Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #ef4444;
+            --background-color: #000000;
+            --surface-color: #1f2937;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent-color: #27272a;
+        }
+        .light-mode {
+            --primary-color: #ef4444;
+            --background-color: #f9fafb;
+            --surface-color: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-color: #f3f4f6;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        .theme-toggle-button {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background-color: var(--accent-color);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border: 1px solid var(--text-secondary);
+        }
+        .theme-toggle-button .toggle-dot {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--text-secondary);
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .theme-toggle-button .icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 4px;
+        }
+        .theme-toggle-button .material-icons {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        input:checked+.theme-toggle-button .toggle-dot {
+            transform: translateX(24px);
+        }
+        input:checked+body {
+            --background-color: #f9fafb;
+            --surface-color: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-color: #f3f4f6;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-24">
+<div class="p-4">
+<div class="flex justify-between items-center mb-6">
+<div>
+<p class="text-sm text-[var(--text-secondary)]">Welcome back,</p>
+<h1 class="text-3xl font-bold">Trainer!</h1>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center">
+<input class="sr-only" id="theme-toggle" type="checkbox"/>
+<label class="theme-toggle-button" for="theme-toggle">
+<div class="icons">
+<span class="material-icons">dark_mode</span>
+<span class="material-icons">light_mode</span>
+</div>
+<div class="toggle-dot"></div>
+</label>
+</div>
+<button class="relative">
+<span class="material-icons text-3xl">notifications</span>
+<span class="absolute top-0 right-0 h-2 w-2 bg-[var(--primary-color)] rounded-full"></span>
+</button>
+<img alt="Trainer profile picture" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvmeV_W3R0Zgv_E5BuKh8ixfghNYzNQ1uByoDTQHPt7aFRvUjZxaEprIh97ASyoYX5CyXgwoFwflsRn5Ahtzt94IggjedDItJPNkRS5mc7bcMRVOyQ4UgO1gfdDpawjuYk4yIR80YymaudIOLZDHHqJpGH4ui8fDvHvH8pcVKt-eWZqbvv5V9KQg0x2s6lLqlUqsJMC29Y3CCmbVHZKapTgUHFkrSGi4m_B83YvH2hmk46oKbuTDK877c-G_WxwP_TWtRP5u3YOjw"/>
+</div>
+</div>
+<div class="bg-[var(--surface-color)] rounded-xl p-4 mb-6">
+<h2 class="font-semibold text-lg mb-3">Quick Stats</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-[var(--accent-color)] p-3 rounded-lg">
+<p class="text-3xl font-bold">48</p>
+<p class="text-sm text-[var(--text-secondary)]">Active Clients</p>
+</div>
+<div class="bg-[var(--accent-color)] p-3 rounded-lg">
+<p class="text-3xl font-bold">12</p>
+<p class="text-sm text-[var(--text-secondary)]">Programs</p>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h2 class="font-semibold text-lg mb-3">Today's Schedule</h2>
+<div class="space-y-3">
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex items-center justify-between">
+<div>
+<p class="font-medium">Client Check-in</p>
+<p class="text-sm text-[var(--text-secondary)]">10:00 AM - Alex Johnson</p>
+</div>
+<span class="material-icons text-[var(--primary-color)]">chevron_right</span>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex items-center justify-between">
+<div>
+<p class="font-medium">Group Session</p>
+<p class="text-sm text-[var(--text-secondary)]">1:00 PM - HIIT Training</p>
+</div>
+<span class="material-icons text-[var(--primary-color)]">chevron_right</span>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex items-center justify-between">
+<div>
+<p class="font-medium">Program Design</p>
+<p class="text-sm text-[var(--text-secondary)]">3:00 PM - New Client Onboarding</p>
+</div>
+<span class="material-icons text-[var(--primary-color)]">chevron_right</span>
+</div>
+</div>
+</div>
+<div>
+<h2 class="font-semibold text-lg mb-3">Recent Activity</h2>
+<div class="space-y-3">
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex items-center space-x-4">
+<img alt="Client profile picture" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXSj3LGgnvSoQ3GAv92zJI4gNB4C4fZ34Wph3cWfehs0UtlGofF0K3yskoHdN2i_vPrCseH5YZPftnAQ8CCnma0r1Am_zdFapDyWi0GILX_ymyLeVSHWa0zuxUNefK-jkrmnXbFV31AKRpu6bKUCtGptMDZXok1zRnj1RyrcHi2-1Z4cmaSF7VqTEdGNeTfdrmRgY53c3wOOnJUrSAIMzagCdg_KcTcG3sbHjFtOBtqWM48xdEb_uB5XRjOxl6_yEXVepm7iVL6cM"/>
+<div>
+<p><span class="font-semibold">Sarah L.</span> completed her workout.</p>
+<p class="text-sm text-[var(--text-secondary)]">2 hours ago</p>
+</div>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-4 flex items-center space-x-4">
+<img alt="Client profile picture" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3aKfxTNSL3VM-D3bs7yMk4_a4eVLShwsd6psRwskz0VWVDaTJtNC6O8k_T2Xs-0oFiejZFtZ88fxtkTxPrlX3zZGzMEoAjEFbKSN9FXeZMSkXqC80L33gqQlfp-jykHNyEOdX_GM8sy53hkRZirMAS1kD68AyYm0w3DfEqYslXPYKZ1S_gITiizeDShjhSQoYCRUEQcjbthcUx0DaJezh09NYaFaYffxk72MDZo74jN4bk-dDjDFmubDQE3fE2g_Ksa8-VyZgQBg"/>
+<div>
+<p>You have a new message from <span class="font-semibold">Mike P.</span></p>
+<p class="text-sm text-[var(--text-secondary)]">3 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2 z-10">
+<a class="text-center text-[var(--primary-color)]" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">groups</span>
+<span class="block text-xs">Clients</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">article</span>
+<span class="block text-xs">Programs</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">calendar_today</span>
+<span class="block text-xs">Calendar</span>
+</a>
+</div>
+<script>
+        const toggle = document.getElementById('theme-toggle');
+        toggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.body.classList.add('light-mode');
+            } else {
+                document.body.classList.remove('light-mode');
+            }
+        });
+    </script>
+
+</body></html>
