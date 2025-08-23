@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profilo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --background-dark: #121212;
+            --background-light: #1E1E1E;
+            --primary-accent: #E53935;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --border-color: #2D2D2D;
+            --success-color: #4CAF50;
+        }
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .icon-button {
+            @apply flex items-center justify-center w-10 h-10 rounded-full bg-[var(--background-light)];
+        }
+        .profile-stat {
+            @apply text-center;
+        }
+        .profile-stat-value {
+            @apply text-lg font-bold;
+        }
+        .profile-stat-label {
+            @apply text-sm text-[var(--text-secondary)];
+        }
+        .settings-item {
+            @apply flex items-center justify-between py-4;
+        }
+        .settings-item-content {
+            @apply flex items-center space-x-4;
+        }
+        .settings-icon {
+            @apply text-[var(--primary-accent)];
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body>
+<div class="p-4">
+<div class="flex items-center justify-between mb-8">
+<h1 class="text-3xl font-bold">Profilo</h1>
+<button class="icon-button">
+<span class="material-icons">more_horiz</span>
+</button>
+</div>
+<div class="flex flex-col items-center mb-8">
+<div class="relative mb-4">
+<img alt="User profile picture" class="w-24 h-24 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVXMTdjlEQyHKXVfU_bIxKju0BHK_xOEbkwkfHgZJ1DNjekLkSHAKYdTU7Dpc5vp-4LNmko7yGQvjRyrqZScNyaaNhUpXVSpSxAkw-7Bxv7y6JfJQmGQlNRVre9e2cQm9VJ9MEVDQluyA4cWz6bmyCZbZ9VlshFPYXEl01BaKHe1YuiHlBr_XTXv055pxMWyeAFow9ZBTd8eMMIKttCOKuD4EyrVVbWAsgvmW1mwCHWDCFC4xzrQdQCGmlVMuD2qrmXRphSuYNZaY"/>
+<button class="absolute bottom-0 right-0 bg-[var(--primary-accent)] p-1 rounded-full">
+<span class="material-icons text-sm">edit</span>
+</button>
+</div>
+<h2 class="text-xl font-semibold">Mario Rossi</h2>
+<p class="text-[var(--text-secondary)] text-sm">mario.rossi@email.com</p>
+</div>
+<div class="grid grid-cols-3 gap-4 mb-8 bg-[var(--background-light)] p-4 rounded-xl">
+<div class="profile-stat">
+<p class="profile-stat-value">78kg</p>
+<p class="profile-stat-label">Peso</p>
+</div>
+<div class="profile-stat">
+<p class="profile-stat-value">182cm</p>
+<p class="profile-stat-label">Altezza</p>
+</div>
+<div class="profile-stat">
+<p class="profile-stat-value">22%</p>
+<p class="profile-stat-label">Grasso C.</p>
+</div>
+</div>
+<div class="bg-[var(--background-light)] rounded-xl p-4">
+<div class="settings-item border-b border-[var(--border-color)]">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">person</span>
+<span>Informazioni Personali</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</div>
+<div class="settings-item border-b border-[var(--border-color)]">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">notifications</span>
+<span>Notifiche</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</div>
+<div class="settings-item border-b border-[var(--border-color)]">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">security</span>
+<span>Sicurezza</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</div>
+<div class="settings-item">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">help_outline</span>
+<span>Aiuto &amp; Supporto</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</div>
+</div>
+<div class="mt-8">
+<button class="w-full flex items-center justify-center space-x-2 py-3 text-lg text-[var(--primary-accent)]">
+<span class="material-icons">logout</span>
+<span>Logout</span>
+</button>
+</div>
+</div>
+</body></html>
