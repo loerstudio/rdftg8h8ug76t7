@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trainer Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --background-dark: #0D0D0D;
+            --background-light: #1A1A1A;
+            --primary-accent: #4CAF50;--text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --border-color: #2D2D2D;
+            --danger-color: #F44336;
+        }
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .icon-button {
+            @apply flex items-center justify-center w-10 h-10 rounded-full bg-[var(--background-light)];
+        }
+        .profile-stat {
+            @apply text-center;
+        }
+        .profile-stat-value {
+            @apply text-lg font-bold;
+        }
+        .profile-stat-label {
+            @apply text-sm text-[var(--text-secondary)];
+        }
+        .settings-item {
+            @apply flex items-center justify-between py-4;
+        }
+        .settings-item-content {
+            @apply flex items-center space-x-4;
+        }
+        .settings-icon {
+            @apply text-[var(--primary-accent)];
+        }
+    </style>
+<style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body>
+<div class="p-5">
+<div class="flex items-center justify-between mb-6">
+<h1 class="text-3xl font-bold">Profile</h1>
+<button class="icon-button">
+<span class="material-icons">settings</span>
+</button>
+</div>
+<div class="flex flex-col items-center mb-6">
+<div class="relative mb-4">
+<img alt="Trainer profile picture" class="w-28 h-28 rounded-full object-cover border-2 border-[var(--primary-accent)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIM_cmwo_5kQt4QLKLZQELRXGNKTBUZf8eC0glWlar8r9bXaBUkNcNfqLu-6IeorE_8BTin49qizOm2ttcCv5H1sN5xUfynHjAKQANiD8BT4AuGc_8jgQAzSFdbdDCbTywtGe9rwbBMLoM6Scash9aKK6nDEEb_iQwkV_U8hxHgBmoxJYG6GDO4DRWteFH4XvT4NTFzZ0ECGtygyJOmEHGg1aiGfLZzRl3dQO6gFI_8NbrahEsTZrsFxaSii0FV3wrwq75v8wvbX0"/>
+<button class="absolute bottom-0 right-0 bg-[var(--primary-accent)] p-2 rounded-full transform translate-y-1/4 translate-x-1/4">
+<span class="material-icons text-base">photo_camera</span>
+</button>
+</div>
+<h2 class="text-2xl font-semibold mt-2">Alex Morgan</h2>
+<p class="text-[var(--text-secondary)]">@alexmorganfit</p>
+</div>
+<div class="grid grid-cols-3 gap-4 mb-8 bg-[var(--background-light)] p-4 rounded-2xl">
+<div class="profile-stat">
+<p class="profile-stat-value">150</p>
+<p class="profile-stat-label">Clients</p>
+</div>
+<div class="profile-stat">
+<p class="profile-stat-value">5 yrs</p>
+<p class="profile-stat-label">Experience</p>
+</div>
+<div class="profile-stat">
+<p class="profile-stat-value">4.9 <span class="text-yellow-400">★</span></p>
+<p class="profile-stat-label">Rating</p>
+</div>
+</div>
+<div class="bg-[var(--background-light)] rounded-2xl">
+<a class="settings-item px-4 border-b border-[var(--border-color)]" href="#">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">account_circle</span>
+<span>Account Details</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</a>
+<a class="settings-item px-4 border-b border-[var(--border-color)]" href="#">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">payments</span>
+<span>Billing &amp; Subscriptions</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</a>
+<a class="settings-item px-4 border-b border-[var(--border-color)]" href="#">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">notifications</span>
+<span>Notification Settings</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</a>
+<a class="settings-item px-4" href="#">
+<div class="settings-item-content">
+<span class="material-icons settings-icon">help_outline</span>
+<span>Help Center</span>
+</div>
+<span class="material-icons text-[var(--text-secondary)]">chevron_right</span>
+</a>
+</div>
+<div class="mt-8">
+<button class="w-full flex items-center justify-center space-x-2 py-3 text-lg text-[var(--danger-color)] bg-[var(--background-light)] rounded-xl font-semibold">
+<span class="material-icons">logout</span>
+<span>Log Out</span>
+</button>
+</div>
+</div>
+</body></html>
