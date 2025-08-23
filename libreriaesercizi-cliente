@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Esercizi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #EF4444;
+            --background-color: #000000;
+            --surface-color: #1F2937;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        .active-tab {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+        .inactive-tab {
+            color: var(--text-secondary);
+        }
+        .nav-item-active {
+            color: var(--primary-color);
+            border-top: 2px solid var(--primary-color);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-20">
+<div class="p-4">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-4xl font-bold">Esercizi</h1>
+<button class="bg-[var(--surface-color)] p-2 rounded-full">
+<span class="material-icons">search</span>
+</button>
+</div>
+<div class="flex border-b border-gray-700 mb-6">
+<button class="flex-1 py-3 text-center active-tab font-semibold">Tutti gli esercizi</button>
+<button class="flex-1 py-3 text-center inactive-tab">I miei esercizi</button>
+</div>
+<div class="space-y-4">
+<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
+<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
+<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
+</div>
+<div class="p-4">
+<h2 class="text-xl font-bold">Panca Piana</h2>
+<p class="text-sm text-[var(--text-secondary)]">Petto • Bilanciere</p>
+</div>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
+<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
+<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
+</div>
+<div class="p-4">
+<h2 class="text-xl font-bold">Squat</h2>
+<p class="text-sm text-[var(--text-secondary)]">Gambe • Bilanciere</p>
+</div>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
+<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
+<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
+</div>
+<div class="p-4">
+<h2 class="text-xl font-bold">Stacco da terra</h2>
+<p class="text-sm text-[var(--text-secondary)]">Schiena • Bilanciere</p>
+</div>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
+<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
+<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
+</div>
+<div class="p-4">
+<h2 class="text-xl font-bold">Lento Avanti</h2>
+<p class="text-sm text-[var(--text-secondary)]">Spalle • Bilanciere</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2">
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center nav-item-active px-4 pt-2" href="#">
+<span class="material-icons">fitness_center</span>
+<span class="block text-xs">Workout</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">restaurant</span>
+<span class="block text-xs">Alimentazione</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">trending_up</span>
+<span class="block text-xs">Progressi</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+</div>
+
+</body></html>
