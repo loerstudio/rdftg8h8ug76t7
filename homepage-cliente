@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Home - Fitness App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #EF4444;--background-color: #000000;
+            --surface-color: #1F2937;--text-primary-color: #FFFFFF;
+            --text-secondary-color: #9CA3AF;--text-accent-color: #F87171;}
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary-color);
+            font-family: 'Inter', sans-serif;
+        }
+        .icon-btn {
+            @apply bg-[var(--surface-color)] p-2 rounded-full;
+        }
+        .card {
+            @apply bg-[var(--surface-color)] rounded-xl p-4;
+        }
+        .nav-active {
+            @apply text-[var(--primary-color)] border-t-2 border-[var(--primary-color)];
+        }
+        .nav-inactive {
+            @apply text-[var(--text-secondary-color)];
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-20">
+<div class="p-4 space-y-6">
+<header class="flex justify-between items-center">
+<div class="flex items-center space-x-3">
+<img alt="User avatar" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIh-Y5JDcYSLCJQcZtU8awlncY_OF7KgjKVDqLKkhHjQCwXxGm_dqlYhOtPI_jpz_JC6rxefzI2aRvT4rfk8LBU4W85q_mvs7dy03kqbVmaKZg0CWQySHzccxq39sYEgZTuvXmDeqU2gxU0Bli87hu8Z-7yDReFyPrPdWQiAdp6JaifOsy8CUYeZ4mDdDXiRJFGz7KVr1hynuBADyhHLnxoUD3IoyPgWwxBZjUo4f3oO69u2GVBMMr40UaGDubqUDa1FLDz7Tz714"/>
+<div>
+<p class="text-sm text-[var(--text-secondary-color)]">Buongiorno</p>
+<h1 class="text-xl font-bold">Sofia</h1>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<button class="icon-btn">
+<span class="material-icons">dark_mode</span>
+</button>
+<button class="icon-btn relative">
+<span class="material-icons">notifications</span>
+<span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-[var(--primary-color)]"></span>
+</button>
+<button class="icon-btn">
+<span class="material-icons">settings</span>
+</button>
+</div>
+</header>
+<div class="card flex justify-between items-center">
+<div>
+<h2 class="font-semibold text-lg">Calorie</h2>
+<p class="text-3xl font-bold">1.280 <span class="text-base font-normal text-[var(--text-secondary-color)]">/ 2.100 kCal</span></p>
+</div>
+<div class="w-24 h-24 relative">
+<svg class="w-full h-full" viewBox="0 0 36 36">
+<path class="text-gray-700" d="M18 2.0845
+                          a 15.9155 15.9155 0 0 1 0 31.831
+                          a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-[var(--primary-color)]" d="M18 2.0845
+                          a 15.9155 15.9155 0 0 1 0 31.831
+                          a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="61, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-lg font-bold">61%</span>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold">Il mio workout</h2>
+<a class="text-sm text-[var(--text-accent-color)]" href="#">Vedi tutto</a>
+</div>
+<div class="card">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-lg font-bold">Total Body Settimana 1</h3>
+<p class="text-gray-400 text-sm">3 di 5 workout completati</p>
+<div class="w-full bg-gray-700 rounded-full h-1.5 mt-2">
+<div class="bg-[var(--primary-color)] h-1.5 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<button class="text-[var(--primary-color)]">
+<span class="material-icons text-3xl">play_circle</span>
+</button>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold">Alimentazione</h2>
+<a class="text-sm text-[var(--text-accent-color)]" href="#">Vedi tutto</a>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="card text-center">
+<span class="material-icons text-3xl text-[var(--text-accent-color)]">local_fire_department</span>
+<p class="font-semibold mt-2">Proteine</p>
+<p class="text-sm text-[var(--text-secondary-color)]">120g / 150g</p>
+</div>
+<div class="card text-center">
+<span class="material-icons text-3xl text-blue-400">water_drop</span>
+<p class="font-semibold mt-2">Acqua</p>
+<p class="text-sm text-[var(--text-secondary-color)]">6 / 8 bicchieri</p>
+</div>
+</div>
+</div>
+<div class="bg-gray-800 rounded-xl p-4 flex items-center space-x-4">
+<span class="material-icons text-4xl text-[var(--primary-color)]">live_tv</span>
+<div>
+<h3 class="font-bold text-lg">Live Workout</h3>
+<p class="text-sm text-gray-400">Unisciti a una sessione live adesso</p>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2">
+<a class="text-center nav-active px-4 pt-2" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center nav-inactive" href="#">
+<span class="material-icons">fitness_center</span>
+<span class="block text-xs">Workout</span>
+</a>
+<a class="text-center nav-inactive" href="#">
+<span class="material-icons">restaurant</span>
+<span class="block text-xs">Alimentazione</span>
+</a>
+<a class="text-center nav-inactive" href="#">
+<span class="material-icons">trending_up</span>
+<span class="block text-xs">Progressi</span>
+</a>
+<a class="text-center nav-inactive" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+</div>
+</body></html>
