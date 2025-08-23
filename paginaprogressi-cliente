@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Progress - Fitness App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #EF4444;
+      --background-color: #000000;
+      --surface-color: #1F2937;
+      --text-primary-color: #FFFFFF;
+      --text-secondary-color: #9CA3AF;
+      --text-accent-color: #F87171;
+      --green-color: #4ADE80;
+    }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-primary-color);
+      font-family: 'Inter', sans-serif;
+    }
+    .icon-btn {
+      @apply bg-[var(--surface-color)] p-2 rounded-full;
+    }
+    .card {
+      @apply bg-[var(--surface-color)] rounded-xl p-4;
+    }
+    .nav-active {
+      @apply text-[var(--primary-color)];
+    }
+    .nav-inactive {
+      @apply text-[var(--text-secondary-color)];
+    }
+    .tab-active {
+      @apply bg-[var(--primary-color)] text-white;
+    }
+    .tab-inactive {
+      @apply bg-transparent text-[var(--text-secondary-color)];
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-20">
+<div class="p-4 space-y-6">
+<header class="flex justify-between items-center">
+<h1 class="text-xl font-bold">Progressi</h1>
+<button class="icon-btn">
+<span class="material-icons">more_horiz</span>
+</button>
+</header>
+<div class="card">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-semibold text-lg">Statistiche</h2>
+<div class="bg-black rounded-full p-1 flex text-xs">
+<button class="px-3 py-1 rounded-full tab-active">Settimana</button>
+<button class="px-3 py-1 rounded-full tab-inactive">Mese</button>
+<button class="px-3 py-1 rounded-full tab-inactive">Anno</button>
+</div>
+</div>
+<div class="flex justify-between text-center text-sm mb-4">
+<div>
+<p class="text-[var(--text-secondary-color)]">Workout</p>
+<p class="font-bold">4</p>
+</div>
+<div>
+<p class="text-[var(--text-secondary-color)]">kCal</p>
+<p class="font-bold">1.520</p>
+</div>
+<div>
+<p class="text-[var(--text-secondary-color)]">Minuti</p>
+<p class="font-bold">180</p>
+</div>
+</div>
+<div class="h-48">
+<div class="h-full flex items-end space-x-2">
+<div class="flex-1 text-center">
+<div class="bg-gray-700 rounded-t-lg" style="height: 60%;"></div>
+<p class="text-xs text-[var(--text-secondary-color)] mt-1">Lun</p>
+</div>
+<div class="flex-1 text-center">
+<div class="bg-[var(--primary-color)] rounded-t-lg" style="height: 80%;"></div>
+<p class="text-xs text-[var(--text-secondary-color)] mt-1">Mar</p>
+</div>
+<div class="flex-1 text-center">
+<div class="bg-gray-700 rounded-t-lg" style="height: 50%;"></div>
+<p class="text-xs text-[var(--text-secondary-color)] mt-1">Mer</p>
+</div>
+<div class="flex-1 text-center">
+<div class="bg-[var(--primary-color)] rounded-t-lg" style="height: 90%;"></div>
+<p class="text-xs text-[var(--text-secondary-color)] mt-1">Gio</p>
+</div>
+<div class="flex-1 text-center">
+<div class="bg-gray-700 rounded-t-lg" style="height: 40%;"></div>
+<p class="text-xs text-[var(--text-secondary-color)] mt-1">Ven</p>
+</div>
+<div class="flex-1 text-center">
+<div class="bg-gray-700 rounded-t-lg" style="height: 70%;"></div>
+<p class="text-xs text-[var(--text-secondary-color)] mt-1">Sab</p>
+</div>
+<div class="flex-1 text-center">
+<div class="bg-[var(--primary-color)] rounded-t-lg" style="height: 100%;"></div>
+<p class="text-xs text-[var(--text-secondary-color)] mt-1">Dom</p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h2 class="text-xl font-semibold mb-4">Peso Corporeo</h2>
+<div class="card space-y-4">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-3xl font-bold">75,5 <span class="text-base font-normal text-[var(--text-secondary-color)]">kg</span></p>
+<p class="text-sm text-[var(--green-color)] flex items-center">
+<span class="material-icons text-base">arrow_downward</span>
+              -0,5kg questa settimana
+            </p>
+</div>
+<button class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-full font-semibold text-sm">Aggiungi peso</button>
+</div>
+<div class="h-32 bg-gray-800 rounded-lg flex items-center justify-center">
+<p class="text-sm text-gray-500">Grafico andamento peso</p>
+</div>
+</div>
+</div>
+<div>
+<h2 class="text-xl font-semibold mb-4">I miei record</h2>
+<div class="space-y-3">
+<div class="card flex justify-between items-center">
+<div>
+<p class="font-semibold">Panca piana</p>
+<p class="text-sm text-[var(--text-secondary-color)]">80kg x 5 reps</p>
+</div>
+<span class="material-icons text-[var(--text-secondary-color)]">chevron_right</span>
+</div>
+<div class="card flex justify-between items-center">
+<div>
+<p class="font-semibold">Squat</p>
+<p class="text-sm text-[var(--text-secondary-color)]">100kg x 3 reps</p>
+</div>
+<span class="material-icons text-[var(--text-secondary-color)]">chevron_right</span>
+</div>
+<div class="card flex justify-between items-center">
+<div>
+<p class="font-semibold">Corsa</p>
+<p class="text-sm text-[var(--text-secondary-color)]">5km in 25 minuti</p>
+</div>
+<span class="material-icons text-[var(--text-secondary-color)]">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black flex justify-around items-center pt-2 pb-5 border-t border-gray-800">
+<a class="text-center nav-inactive flex flex-col items-center gap-1" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center nav-inactive flex flex-col items-center gap-1" href="#">
+<span class="material-icons">fitness_center</span>
+<span class="block text-xs">Workout</span>
+</a>
+<a class="text-center nav-inactive flex flex-col items-center gap-1" href="#">
+<span class="material-icons">restaurant</span>
+<span class="block text-xs">Dieta</span>
+</a>
+<a class="text-center nav-active flex flex-col items-center gap-1" href="#">
+<span class="material-icons">bar_chart</span>
+<span class="block text-xs">Progressi</span>
+</a>
+<a class="text-center nav-inactive flex flex-col items-center gap-1" href="#">
+<span class="material-icons">person</span>
+<span class="block text-xs">Profilo</span>
+</a>
+</div>
+
+</body></html>
