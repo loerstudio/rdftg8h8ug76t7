@@ -5,6 +5,13 @@
 -- -------------------------------------------------
 -- Cleanup Script
 -- -------------------------------------------------
+-- Drop dependent objects first
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+DROP FUNCTION IF EXISTS public.handle_new_user();
+DROP FUNCTION IF EXISTS public.create_full_program(text, text, uuid, json);
+DROP FUNCTION IF EXISTS public.add_client_by_email(text);
+
+-- Drop tables
 DROP TABLE IF EXISTS public.workout_logs CASCADE;
 DROP TABLE IF EXISTS public.progress_photos CASCADE;
 DROP TABLE IF EXISTS public.chat_messages CASCADE;
