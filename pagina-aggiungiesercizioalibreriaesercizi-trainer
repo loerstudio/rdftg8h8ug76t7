@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Exercise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #EF4444;
+      --background-color: #000000;
+      --surface-color: #1F2937;
+      --surface-light: #374151;
+      --text-primary: #FFFFFF;
+      --text-secondary: #9CA3AF;
+    }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-primary);
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+    .input-field {
+      @apply bg-[var(--surface-color)] border border-[var(--surface-light)] text-[var(--text-primary)] text-base rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-3;
+    }
+    .label-text {
+      @apply block mb-2 text-sm font-medium text-[var(--text-secondary)];
+    }
+    .custom-select {
+        @apply appearance-none bg-[var(--surface-color)] border border-[var(--surface-light)] text-[var(--text-primary)] text-base rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-3;
+    }
+    .select-arrow {
+        @apply pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[var(--text-secondary)];
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-24">
+<div class="p-4">
+<div class="flex items-center mb-6">
+<button class="mr-4">
+<span class="material-icons text-2xl">arrow_back_ios</span>
+</button>
+<h1 class="text-2xl font-bold">Add Exercise</h1>
+</div>
+<div class="space-y-6">
+<div>
+<label class="label-text" for="exercise-name">Exercise Name</label>
+<input class="input-field" id="exercise-name" placeholder="e.g. Barbell Bench Press" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="label-text" for="muscle-group">Muscle group</label>
+<div class="relative">
+<select class="custom-select" id="muscle-group">
+<option>Chest</option>
+<option>Back</option>
+<option>Legs</option>
+<option>Shoulders</option>
+<option>Biceps</option>
+<option>Triceps</option>
+</select>
+<div class="select-arrow">
+<span class="material-icons">unfold_more</span>
+</div>
+</div>
+</div>
+<div>
+<label class="label-text" for="equipment">Equipment</label>
+<div class="relative">
+<select class="custom-select" id="equipment">
+<option>Barbell</option>
+<option>Dumbbell</option>
+<option>Machine</option>
+<option>Bodyweight</option>
+<option>Kettlebell</option>
+</select>
+<div class="select-arrow">
+<span class="material-icons">unfold_more</span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<label class="label-text">Media</label>
+<div class="flex space-x-4">
+<div class="w-24 h-24 bg-[var(--surface-color)] border-2 border-dashed border-[var(--surface-light)] rounded-lg flex items-center justify-center">
+<button class="flex flex-col items-center text-[var(--text-secondary)]">
+<span class="material-icons">add_photo_alternate</span>
+<span class="text-xs mt-1">Image</span>
+</button>
+</div>
+<div class="w-24 h-24 bg-[var(--surface-color)] border-2 border-dashed border-[var(--surface-light)] rounded-lg flex items-center justify-center">
+<button class="flex flex-col items-center text-[var(--text-secondary)]">
+<span class="material-icons">videocam</span>
+<span class="text-xs mt-1">Video</span>
+</button>
+</div>
+</div>
+</div>
+<div>
+<label class="label-text" for="instructions">Instructions</label>
+<textarea class="input-field" id="instructions" placeholder="Add exercise instructions..." rows="4"></textarea>
+</div>
+<div>
+<label class="label-text" for="notes">Private Notes</label>
+<textarea class="input-field" id="notes" placeholder="Add private notes, only visible to you..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-[var(--background-color)] border-t border-[var(--surface-color)]">
+<button class="w-full bg-[var(--primary-color)] text-white font-bold py-3 px-4 rounded-lg">
+      Save Exercise
+    </button>
+</div>
+
+</body></html>
