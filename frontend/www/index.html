@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Accesso</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Supabase and Auth Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/supabaseClient.js"></script>
+  <script src="./js/auth.js"></script>
+  <style type="text/tailwindcss">
+    :root {
+      --primary-color: #EF4444;
+      --background-color: #111827;
+      --card-color: #1F2937;
+      --text-primary: #F9FAFB;
+      --text-secondary: #9CA3AF;
+      --input-bg: #374151;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-primary);
+    }
+    .input-field {
+      @apply w-full bg-[var(--input-bg)] text-[var(--text-primary)] border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-[var(--primary-color)];
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-sm px-4">
+    <div class="text-center mb-12">
+      <a href="https://imgbb.com/"><img src="https://i.ibb.co/tMVNDTV4/spc-app-logo.png" alt="spc-app-logo" border="0" class="mx-auto"></a>
+    </div>
+    <form class="space-y-8" id="login-form">
+      <div class="text-left">
+        <label class="sr-only" for="email">Email</label>
+        <div class="flex items-start gap-3">
+          <div class="w-16 flex flex-col items-center">
+            <span class="material-icons text-[var(--text-secondary)]">email</span>
+            <span class="mt-1 text-xs text-[var(--text-secondary)]">Email</span>
+          </div>
+          <input class="input-field flex-1" id="email" name="email" placeholder="nome@esempio.com" type="email" required/>
+        </div>
+      </div>
+      <!-- Password field is hidden for OTP flow -->
+      <div class="text-left hidden">
+        <label class="sr-only" for="password">Password</label>
+        <div class="flex items-start gap-3">
+          <div class="w-16 flex flex-col items-center">
+            <span class="material-icons text-[var(--text-secondary)]">lock</span>
+            <span class="mt-1 text-xs text-[var(--text-secondary)]">Password</span>
+          </div>
+          <input class="input-field flex-1" id="password" name="password" placeholder="••••••••" type="password"/>
+        </div>
+      </div>
+      <button class="w-full bg-[var(--primary-color)] text-white font-bold py-3 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--background-color)] focus:ring-[var(--primary-color)] transition duration-150 ease-in-out" type="submit" id="login-button">
+        Accedi con Codice
+      </button>
+    </form>
+  </div>
+
+<script>
+    const loginForm = document.getElementById('login-form');
+
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const button = document.getElementById('login-button');
+
+        if (!email) {
+            alert('Per favore, inserisci la tua email.');
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = 'Invio in corso...';
+
+        await signInWithOtp(email);
+
+        button.disabled = false;
+        button.textContent = 'Accedi con Codice';
+    });
+</script>
+
+</body>
+</html>
