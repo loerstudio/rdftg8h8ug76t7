@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #ef4444;
+            --background-color: #000000;
+            --surface-color: #1f2937;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent-color: #27272a;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-24">
+<div class="p-4">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-3xl font-bold">Chat</h1>
+<button class="text-white">
+<span class="material-icons">search</span>
+</button>
+</div>
+<div class="space-y-4">
+<div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-[var(--surface-color)] cursor-pointer">
+<img alt="avatar" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqQGXYN0bkk-QFCGSbeeLQYcUKX35C5q8RAF-NiBGMjkOnuj-Z_7oM2MDhiNBi_ccGHx38tsBzVTmdp50ua5XQDGsV4ZZQzNanjmKV2p3vnZHN5d8bxlYmJGmzaZsIlt1a6YHifOQmGKWBJp6DsmlShkHCcqhVhHJeUTbVwDvp5zyhf4NLlE30neCdFNbHU4Wgepp8XjPcz3n2qRziPewje1CM1mQdLBeIJ7rvEfsPufsBIT_Lb0Ra-Em_tufbY6ZuI_gWGRbE32E"/>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-semibold">Sarah J.</p>
+<p class="text-xs text-[var(--text-secondary)]">2 min ago</p>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-sm text-[var(--text-secondary)]">Awesome, thanks!</p>
+<span class="bg-[var(--primary-color)] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">1</span>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-[var(--surface-color)] cursor-pointer">
+<img alt="avatar" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbfJibbxXusyoaX5_aHohHi3fNwaAjONuotXLZWuYpt2bYmKDZs6zvFLrq55bI0zQUm7voIGskfGaLamXvFAvKk_8pTynoF9EmZqrscB_8foHRGSldXbblVzNEIvpyMgqporBsdyd9AKIg5N728BnuVMRyWpuJPMnGCVev4EbXkvfyH-zLf1CSoylCDDOzq_7EEl6M1cOgCyd4jAx-GIphd7S9wAPdpzAB628Eyv-3dDJ6eOdZDxxb5TOPaiix-elfatb637K-xMU"/>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-semibold">Mike T.</p>
+<p class="text-xs text-[var(--text-secondary)]">1:15 PM</p>
+</div>
+<p class="text-sm text-[var(--text-secondary)]">Got it, will do.</p>
+</div>
+</div>
+<div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-[var(--surface-color)] cursor-pointer">
+<img alt="avatar" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFKSUKfg7iiI9AfkQ1CB2P-PN_h0M7luHLOWMFfX3MYdD0wTj608I9eizDlJCVsGQkuh6FidgMxtLUnZPG-63jtqTKJZb9aT1T0YEOuImu7cLWKLySasIVPOKxkjuOMZqgWUiGc1O1zSISdDtsVWgO6tIVEUSWdwq88sqUSUzomBbuf9Kz5pHRpxCYQwLEn7ZDZGnoskt7R_jTXUVu3eitWUgJjHy2SVyQlxfsqphNJNkD6by5n6vFSmi8hDlKNLkUkVYhDcuDiD8"/>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-semibold">Emily C.</p>
+<p class="text-xs text-[var(--text-secondary)]">Yesterday</p>
+</div>
+<p class="text-sm text-[var(--text-secondary)]">Can you check my form?</p>
+</div>
+</div>
+<div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-[var(--surface-color)] cursor-pointer">
+<img alt="avatar" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU2VGvBKcp3XWsWJ2s8qFgXDmqXYEyCKT5QafrYWiGmXmIInT8Eznjh-Qg6_7dYERE3jYBpCrcqmYNykoPPcVZaKYZIlC-lA_lDwQ4M76U-0auQBypo1x1-iBteBOnhGLeuJyh0uKJlqeImtYQkpUlhixIUiYT0QmToVnxmgs1Tn6HW1mYawIpzwQOhHBFOdve6fF3mASgmHHlRfalV448_tre7tvPoPII-d-JYMb0geWvCBXigt6FiaGCnY26QKGNgoes3IkLdvE"/>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-semibold">David L.</p>
+<p class="text-xs text-[var(--text-secondary)]">Yesterday</p>
+</div>
+<p class="text-sm text-[var(--text-secondary)]">Feeling great after that workout!</p>
+</div>
+</div>
+<div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-[var(--surface-color)] cursor-pointer">
+<img alt="avatar" class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_7IltoqZcKfWBdgZd_IBOas0Sa2C5NLBWGZdUBWUDo91zm5i5NvjLEcm0q8uDWkpFG1QtdG4I0qGuGSHCam1ad67GjcuNKrs8jiWNmm83CcySUxhNq3UmGcRAx2n0UEMs2l9XMV5KZY3Ot5lGzHvIpek9Awi5Ysnn1RAt5IxuUMeg39sGTCepuMM86Zh3Hcpml94I-a362uOXAHpWR73B9LaI5w9O2l-WKhmrZlQtoz8C05z-qsvV4aXimX76c05TeQqOSb2y_SU"/>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<p class="font-semibold">Jessica P.</p>
+<p class="text-xs text-[var(--text-secondary)]">3/15/24</p>
+</div>
+<p class="text-sm text-[var(--text-secondary)]">Photo</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2 z-10">
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">groups</span>
+<span class="block text-xs">Clients</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">article</span>
+<span class="block text-xs">Programs</span>
+</a>
+<a class="text-center text-[var(--primary-color)]" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">calendar_today</span>
+<span class="block text-xs">Calendar</span>
+</a>
+</div>
+
+</body></html>
