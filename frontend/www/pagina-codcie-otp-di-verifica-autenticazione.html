@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Email Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #EF4444;
+            --background-color: #111827;
+            --card-color: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --input-bg: #374151;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+        }
+        .otp-input {
+            @apply w-12 h-14 bg-[var(--input-bg)] text-[var(--text-primary)] border-2 border-transparent rounded-lg text-center text-2xl font-bold focus:ring-2 focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] transition-all;
+        }
+    </style>
+<style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen">
+<header class="absolute top-0 left-0 w-full p-4">
+<a class="inline-flex items-center text-[var(--text-primary)] hover:text-[var(--primary-color)] transition-colors" href="sezione-login-mail-e-password.html">
+<span class="material-icons">arrow_back_ios_new</span>
+</a>
+</header>
+<main class="flex-grow flex items-center justify-center">
+<div class="w-full max-w-sm px-4">
+<div class="text-center mb-8">
+<span class="material-icons text-[var(--primary-color)] text-6xl">
+                mark_email_read
+            </span>
+<h1 class="text-3xl font-bold mt-4">Controlla la tua email</h1>
+<p class="text-[var(--text-secondary)] mt-2">Abbiamo inviato un codice di 6 cifre a <span class="text-[var(--text-primary)] font-medium" id="email-placeholder">la tua email</span>. Per favore, inseriscilo qui sotto.</p>
+</div>
+<form class="space-y-6" id="otp-form">
+<div>
+<label class="block text-sm font-medium text-[var(--text-secondary)] mb-2 text-center" for="otp">Inserisci il codice di verifica</label>
+<div class="flex justify-center gap-2" id="otp-inputs">
+<input class="otp-input" id="otp-1" maxlength="1" type="text" inputmode="numeric" required/>
+<input class="otp-input" id="otp-2" maxlength="1" type="text" inputmode="numeric" required/>
+<input class="otp-input" id="otp-3" maxlength="1" type="text" inputmode="numeric" required/>
+<input class="otp-input" id="otp-4" maxlength="1" type="text" inputmode="numeric" required/>
+<input class="otp-input" id="otp-5" maxlength="1" type="text" inputmode="numeric" required/>
+<input class="otp-input" id="otp-6" maxlength="1" type="text" inputmode="numeric" required/>
+</div>
+</div>
+<button class="w-full bg-[var(--primary-color)] text-white font-bold py-3 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--background-color)] focus:ring-[var(--primary-color)] transition duration-150 ease-in-out" type="submit" id="verify-button">
+                Verifica
+            </button>
+</form>
+<div class="text-center mt-6">
+<p class="text-sm text-[var(--text-secondary)]">
+                Non hai ricevuto il codice?
+                <a class="font-medium text-[var(--primary-color)] hover:underline" href="#">Reinvia Codice</a>
+</p>
+</div>
+</div>
+</main>
+<script>
+    const inputs = document.getElementById('otp-inputs');
+    const otpForm = document.getElementById('otp-form');
+    const verifyButton = document.getElementById('verify-button');
+    const emailPlaceholder = document.getElementById('email-placeholder');
+
+    // Display the email from localStorage
+    const emailForVerification = localStorage.getItem('emailForVerification');
+    if (emailForVerification) {
+        emailPlaceholder.textContent = emailForVerification;
+    }
+
+    // Auto-focus logic
+    inputs.addEventListener('input', function(e) {
+        const target = e.target;
+        const val = target.value;
+        if (isNaN(val)) {
+            target.value = '';
+            return;
+        }
+        if (val != '') {
+            const next = target.nextElementSibling;
+            if (next) {
+                next.focus();
+            }
+        }
+    });
+
+    inputs.addEventListener('keyup', function(e) {
+        const target = e.target;
+        const key = e.key.toLowerCase();
+        if (key == 'backspace' || key == 'delete') {
+            target.value = '';
+            const prev = target.previousElementSibling;
+            if (prev) {
+                prev.focus();
+            }
+            return;
+        }
+    });
+
+    // Form submission logic
+    otpForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const otp_inputs = document.querySelectorAll('.otp-input');
+        let token = '';
+        otp_inputs.forEach(input => {
+            token += input.value;
+        });
+
+        if (token.length !== 6) {
+            alert('Per favore, inserisci un codice di 6 cifre.');
+            return;
+        }
+
+        if (!emailForVerification) {
+            alert("Email non trovata. Torna alla pagina di login e riprova.");
+            return;
+        }
+
+        verifyButton.disabled = true;
+        verifyButton.textContent = 'Verifica in corso...';
+
+        await verifyOtp(emailForVerification, token);
+
+        // The verifyOtp function will handle redirection on success.
+        // If it fails, re-enable the button.
+        verifyButton.disabled = false;
+        verifyButton.textContent = 'Verifica';
+    });
+</script>
+
+</body></html>

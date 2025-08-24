@@ -5,6 +5,11 @@
 <title>Esercizi</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
 <style type="text/tailwindcss">
         :root {
             --primary-color: #EF4444;
@@ -37,11 +42,6 @@
             min-height: max(884px, 100dvh);
         }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
   </head>
 <body class="pb-20">
 <div class="p-4">
@@ -55,43 +55,9 @@
 <button class="flex-1 py-3 text-center active-tab font-semibold">Tutti gli esercizi</button>
 <button class="flex-1 py-3 text-center inactive-tab">I miei esercizi</button>
 </div>
-<div class="space-y-4">
-<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
-<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
-<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
-</div>
-<div class="p-4">
-<h2 class="text-xl font-bold">Panca Piana</h2>
-<p class="text-sm text-[var(--text-secondary)]">Petto • Bilanciere</p>
-</div>
-</div>
-<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
-<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
-<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
-</div>
-<div class="p-4">
-<h2 class="text-xl font-bold">Squat</h2>
-<p class="text-sm text-[var(--text-secondary)]">Gambe • Bilanciere</p>
-</div>
-</div>
-<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
-<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
-<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
-</div>
-<div class="p-4">
-<h2 class="text-xl font-bold">Stacco da terra</h2>
-<p class="text-sm text-[var(--text-secondary)]">Schiena • Bilanciere</p>
-</div>
-</div>
-<div class="bg-[var(--surface-color)] rounded-lg overflow-hidden">
-<div class="bg-gray-800 aspect-video w-full flex items-center justify-center">
-<span class="material-icons text-gray-500" style="font-size: 48px;">play_circle_outline</span>
-</div>
-<div class="p-4">
-<h2 class="text-xl font-bold">Lento Avanti</h2>
-<p class="text-sm text-[var(--text-secondary)]">Spalle • Bilanciere</p>
-</div>
-</div>
+<div id="exercise-list-container" class="space-y-4">
+    <!-- Exercises will be dynamically inserted here -->
+    <p id="loading-exercises">Loading exercises...</p>
 </div>
 </div>
 <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2">
@@ -116,5 +82,49 @@
 <span class="block text-xs">Chat</span>
 </a>
 </div>
+
+<script>
+    const exerciseListContainer = document.getElementById('exercise-list-container');
+    const loadingElement = document.getElementById('loading-exercises');
+
+    function getYoutubeEmbedUrl(url) {
+        if (!url) return null;
+        const videoId = url.split('v=')[1]?.split('&')[0];
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    }
+
+    function renderExercises(exercises) {
+        exerciseListContainer.innerHTML = '';
+        if (!exercises || exercises.length === 0) {
+            exerciseListContainer.innerHTML = '<p>No exercises found in the library.</p>';
+            return;
+        }
+
+        exercises.forEach(exercise => {
+            const embedUrl = getYoutubeEmbedUrl(exercise.video_url);
+            const exerciseDiv = document.createElement('div');
+            exerciseDiv.className = 'bg-[var(--surface-color)] rounded-lg overflow-hidden';
+            exerciseDiv.innerHTML = `
+                <div class="aspect-video w-full">
+                    ${embedUrl ? `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>` : `<div class="bg-gray-800 w-full h-full flex items-center justify-center"><span class="material-icons text-gray-500" style="font-size: 48px;">videocam_off</span></div>`}
+                </div>
+                <div class="p-4">
+                    <h2 class="text-xl font-bold">${exercise.name}</h2>
+                    <p class="text-sm text-[var(--text-secondary)]">${exercise.description || ''}</p>
+                </div>
+            `;
+            exerciseListContainer.appendChild(exerciseDiv);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await checkSession();
+        loadingElement.style.display = 'block';
+        const exercises = await getExerciseLibrary();
+        loadingElement.style.display = 'none';
+        renderExercises(exercises);
+    });
+
+</script>
 
 </body></html>

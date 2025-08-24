@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alimentazione</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
+<style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+        .details-hidden {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-20">
+<div class="p-4">
+<h1 class="text-4xl font-bold mb-6">Alimentazione</h1>
+<div class="flex space-x-4 mb-6">
+<button class="bg-red-600 text-white py-2 px-4 rounded-full">La mia dieta</button>
+<button class="text-gray-400">Diario</button>
+<button class="text-gray-400">Grafici</button>
+</div>
+<div id="daily-goal-container" class="bg-red-600 rounded-lg p-6 mb-6">
+    <!-- Daily goal will be rendered here -->
+</div>
+<button class="w-full bg-gray-800 text-white py-4 px-4 rounded-xl flex items-center justify-center space-x-2 text-lg mb-6">
+<span class="material-icons">photo_camera</span>
+<span>Scansiona Alimento con AI</span>
+</button>
+<div id="plan-container" class="space-y-4">
+    <p id="loading-plan">Caricamento del piano alimentare...</p>
+    <!-- Food plan will be dynamically inserted here -->
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2">
+<a class="text-center text-gray-400" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center text-gray-400" href="#">
+<span class="material-icons">fitness_center</span>
+<span class="block text-xs">Workout</span>
+</a>
+<a class="text-center text-red-500 border-t-2 border-red-500 px-4 pt-2" href="#">
+<span class="material-icons">restaurant</span>
+<span class="block text-xs">Alimentazione</span>
+</a>
+<a class="text-center text-gray-400" href="#">
+<span class="material-icons">trending_up</span>
+<span class="block text-xs">Progressi</span>
+</a>
+<a class="text-center text-gray-400" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+</div>
+
+<script>
+    const planContainer = document.getElementById('plan-container');
+    const loadingElement = document.getElementById('loading-plan');
+
+    function renderFoodPlan(plan) {
+        planContainer.innerHTML = ''; // Clear loading message
+        if (!plan) {
+            planContainer.innerHTML = '<p class="text-gray-400">Nessun piano alimentare assegnato.</p>';
+            return;
+        }
+
+        plan.food_days.forEach(day => {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'bg-gray-900 rounded-lg p-4';
+
+            let mealsHtml = '';
+            day.meals.forEach(meal => {
+                let itemsHtml = '';
+                meal.meal_items.forEach(item => {
+                    itemsHtml += `<li class="text-gray-300">${item.food_library.name} - <span class="font-light">${item.quantity}</span></li>`;
+                });
+
+                mealsHtml += `
+                    <div class="py-2">
+                        <button class="w-full text-left meal-toggle flex justify-between items-center">
+                            <div>
+                                <h4 class="text-lg font-semibold">${meal.name}</h4>
+                                <p class="text-gray-400 text-sm">${meal.meal_time ? meal.meal_time.substring(0, 5) : ''}</p>
+                            </div>
+                            <span class="material-icons text-green-500 text-3xl">check_circle</span>
+                        </button>
+                        <div class="details-hidden pt-2 pl-4">
+                            <ul class="list-disc list-inside">${itemsHtml}</ul>
+                        </div>
+                    </div>
+                `;
+            });
+
+            dayDiv.innerHTML = `
+                <h3 class="text-xl font-bold mb-2">${day.name}</h3>
+                ${mealsHtml}
+            `;
+            planContainer.appendChild(dayDiv);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await checkSession();
+        const plan = await getAssignedFoodPlan();
+        renderFoodPlan(plan);
+        // We can also render the daily goal summary here if the data is available in the plan object
+    });
+
+    // Event delegation for accordion
+    planContainer.addEventListener('click', (e) => {
+        const target = e.target.closest('.meal-toggle');
+        if(target) {
+            const details = target.nextElementSibling;
+            if(details) {
+                details.classList.toggle('details-hidden');
+            }
+        }
+    });
+
+</script>
+
+</body></html>

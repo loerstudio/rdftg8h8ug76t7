@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chat - Fitness App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #EF4444;
+      --background-color: #000000;
+      --surface-color: #1F2937;
+      --text-primary-color: #FFFFFF;
+      --text-secondary-color: #9CA3AF;
+      --green-color: #4ADE80;
+    }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-primary-color);
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+  </head>
+<body class="flex flex-col h-screen">
+<header class="flex justify-between items-center p-4 border-b border-gray-700 sticky top-0 bg-black z-20">
+<div class="flex items-center space-x-3">
+<button onclick="history.back()">
+<span class="material-icons">arrow_back_ios</span>
+</button>
+<div class="flex items-center space-x-2">
+<div class="relative">
+<img id="client-avatar" alt="Client Avatar" class="w-10 h-10 rounded-full object-cover" src="https://i.pravatar.cc/150"/>
+<span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-[var(--green-color)] ring-2 ring-black"></span>
+</div>
+<div>
+<h1 id="client-name" class="text-lg font-bold">Caricamento...</h1>
+<p class="text-xs text-[var(--text-secondary-color)]">Online</p>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-2">
+<button><span class="material-icons text-xl">videocam</span></button>
+<button><span class="material-icons text-xl">call</span></button>
+</div>
+</header>
+<main id="message-container" class="flex-1 overflow-y-auto p-4 space-y-4">
+    <!-- Messages will be dynamically inserted here -->
+</main>
+<footer class="p-2 border-t border-gray-700 bg-black sticky bottom-0 z-20">
+    <form id="message-form" class="flex items-center bg-[var(--surface-color)] rounded-full p-2">
+        <button type="button" class="text-[var(--text-secondary-color)] px-2">
+            <span class="material-icons">add_circle</span>
+        </button>
+        <input id="message-input" class="flex-1 bg-transparent border-none focus:ring-0 text-sm placeholder:text-[var(--text-secondary-color)]" placeholder="Scrivi un messaggio..." type="text" autocomplete="off"/>
+        <button type="submit" class="bg-[var(--primary-color)] rounded-full p-2 ml-2">
+            <span class="material-icons">send</span>
+        </button>
+    </form>
+</footer>
+
+<script>
+    // --- DOM ELEMENTS ---
+    const clientNameEl = document.getElementById('client-name');
+    const clientAvatarEl = document.getElementById('client-avatar');
+    const messageContainerEl = document.getElementById('message-container');
+    const messageFormEl = document.getElementById('message-form');
+    const messageInputEl = document.getElementById('message-input');
+
+    // --- STATE ---
+    let currentUser = null;
+    let clientProfile = null;
+    let messageSubscription = null;
+
+    // --- RENDER FUNCTIONS ---
+    function renderMessage(message) {
+        const isSentByMe = message.sender_id === currentUser.id;
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex ${isSentByMe ? 'justify-end' : 'justify-start'}`;
+
+        const time = new Date(message.created_at).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+        messageDiv.innerHTML = `
+            <div class="${isSentByMe ? 'bg-[var(--primary-color)] rounded-br-none' : 'bg-[var(--surface-color)] rounded-bl-none'} rounded-2xl p-3 max-w-xs">
+                <p class="text-sm">${message.message_text}</p>
+                <p class="text-xs text-right ${isSentByMe ? 'text-gray-200' : 'text-[var(--text-secondary-color)]'} mt-1">${time}</p>
+            </div>
+        `;
+        messageContainerEl.appendChild(messageDiv);
+    }
+
+    function scrollToBottom() {
+        messageContainerEl.scrollTop = messageContainerEl.scrollHeight;
+    }
+
+    // --- LOGIC ---
+    async function handleNewMessage(payload) {
+        if (!clientProfile) return;
+        if ((payload.sender_id === clientProfile.id && payload.receiver_id === currentUser.id) ||
+            (payload.sender_id === currentUser.id && payload.receiver_id === clientProfile.id)) {
+            renderMessage(payload);
+            scrollToBottom();
+        }
+    }
+
+    messageFormEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const messageText = messageInputEl.value.trim();
+        if (messageText && clientProfile) {
+            const result = await sendMessage(clientProfile.id, messageText);
+            if (result) {
+                messageInputEl.value = '';
+            }
+        }
+    });
+
+    // --- INITIALIZATION ---
+    async function init() {
+        const session = await checkSession();
+        if (!session) return;
+
+        currentUser = session.user;
+        const urlParams = new URLSearchParams(window.location.search);
+        const clientId = urlParams.get('clientId');
+
+        if (!clientId) {
+            messageContainerEl.innerHTML = '<p>No client specified.</p>';
+            return;
+        }
+
+        clientProfile = await getUserProfileById(clientId);
+
+        if (!clientProfile) {
+            messageContainerEl.innerHTML = '<p>Client not found.</p>';
+            return;
+        }
+
+        // Update header
+        clientNameEl.textContent = clientProfile.full_name || 'Client';
+        clientAvatarEl.src = `https://i.pravatar.cc/150?u=${clientProfile.id}`;
+
+        // Fetch and render history
+        const messages = await getChatMessages(clientProfile.id);
+        messageContainerEl.innerHTML = '';
+        if (messages) {
+            messages.forEach(renderMessage);
+        }
+        scrollToBottom();
+
+        // Subscribe to new messages
+        if (messageSubscription) {
+            messageSubscription.unsubscribe();
+        }
+        messageSubscription = subscribeToMessages(handleNewMessage);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+</script>
+
+</body></html>

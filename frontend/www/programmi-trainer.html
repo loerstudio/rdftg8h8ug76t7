@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manage Programs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #ef4444;
+            --background-color: #000000;
+            --surface-color: #1f2937;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent-color: #27272a;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+  </head>
+<body class="pb-24">
+<div class="p-4">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-3xl font-bold">Programs</h1>
+<button id="new-program-button" class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-lg flex items-center">
+<span class="material-icons mr-2">add</span>
+                New Program
+            </button>
+</div>
+<div class="space-y-6">
+<div>
+<h2 class="text-xl font-semibold mb-4">Workout Plans</h2>
+<div class="space-y-3" id="workout-plan-list">
+<!-- Dynamic workout plans will be inserted here -->
+<p id="loading-programs" class="text-[var(--text-secondary)]">Loading programs...</p>
+</div>
+</div>
+<div>
+<h2 class="text-xl font-semibold mb-4">Nutritional Plans</h2>
+<div class="space-y-3">
+<div class="bg-[var(--surface-color)] rounded-lg p-3">
+<p class="font-semibold">Lean Muscle Gain</p>
+<p class="text-sm text-[var(--text-secondary)]">2500 kcal</p>
+</div>
+<div class="bg-[var(--surface-color)] rounded-lg p-3">
+<p class="font-semibold">Fat Loss Shred</p>
+<p class="text-sm text-[var(--text-secondary)]">1800 kcal</p>
+</div>
+<div class="border-2 border-dashed border-gray-600 rounded-lg p-3 text-center text-gray-400 hover:bg-gray-800 cursor-pointer">
+<span class="material-icons">add</span>
+<p class="text-sm">New Meal Plan</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2 z-10">
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">groups</span>
+<span class="block text-xs">Clients</span>
+</a>
+<a class="text-center text-[var(--primary-color)]" href="#">
+<span class="material-icons">article</span>
+<span class="block text-xs">Programs</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">calendar_today</span>
+<span class="block text-xs">Calendar</span>
+</a>
+</div>
+
+<script>
+    const programListContainer = document.getElementById('workout-plan-list');
+    const loadingPrograms = document.getElementById('loading-programs');
+    const newProgramButton = document.getElementById('new-program-button');
+
+    function renderPrograms(programs) {
+        programListContainer.innerHTML = ''; // Clear list
+        if (!programs || programs.length === 0) {
+            programListContainer.innerHTML = `<p class="text-[var(--text-secondary)]">No workout plans found.</p>`;
+        } else {
+            programs.forEach(program => {
+                const programDiv = document.createElement('div');
+                programDiv.className = 'bg-[var(--surface-color)] rounded-lg p-3 flex justify-between items-center';
+                programDiv.innerHTML = `
+                    <div>
+                        <p class="font-semibold">${program.name}</p>
+                        <p class="text-sm text-[var(--text-secondary)]">Assigned to: ${program.profiles ? program.profiles.full_name : 'N/A'}</p>
+                    </div>
+                    <button class="text-red-500 hover:text-red-400 delete-program-button" data-program-id="${program.id}" data-program-name="${program.name}">
+                        <span class="material-icons">delete</span>
+                    </button>
+                `;
+                programListContainer.appendChild(programDiv);
+            });
+        }
+        // Add the "New Workout" button at the end
+        const newWorkoutButton = document.createElement('div');
+        newWorkoutButton.className = 'border-2 border-dashed border-gray-600 rounded-lg p-3 text-center text-gray-400 hover:bg-gray-800 cursor-pointer';
+        newWorkoutButton.innerHTML = `<span class="material-icons">add</span><p class="text-sm">New Workout</p>`;
+        newWorkoutButton.addEventListener('click', () => {
+            alert('Program creation UI will be implemented in the next step.');
+        });
+        programListContainer.appendChild(newWorkoutButton);
+    }
+
+    async function refreshPrograms() {
+        loadingPrograms.style.display = 'block';
+        const programs = await getPrograms();
+        loadingPrograms.style.display = 'none';
+        renderPrograms(programs);
+    }
+
+    // Event delegation for deleting programs
+    programListContainer.addEventListener('click', async (e) => {
+        const deleteButton = e.target.closest('.delete-program-button');
+        if (deleteButton) {
+            const programId = deleteButton.dataset.programId;
+            const programName = deleteButton.dataset.programName;
+
+            if (confirm(`Are you sure you want to delete the program "${programName}"?`)) {
+                const success = await deleteProgram(programId);
+                if (success) {
+                    await refreshPrograms();
+                }
+            }
+        }
+    });
+
+    newProgramButton.addEventListener('click', () => {
+        alert('Program creation UI will be implemented in the next step.');
+    });
+
+    // Initial page load
+    document.addEventListener('DOMContentLoaded', async () => {
+        await checkSession();
+        await refreshPrograms();
+    });
+
+</script>
+
+</body></html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Workout Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
+<style type="text/tailwindcss">
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+        .day-card {
+            background-color: #1a1a1a;
+            border: 2px solid transparent;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .day-card:hover {
+            background-color: #2a2a2a;
+        }
+        .day-card.selected {
+            border-color: #ef4444;
+            background: linear-gradient(to right, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0));
+        }
+        .day-card.selected .text-red-500 {
+            color: #ef4444;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen">
+<div class="flex-grow p-4">
+<div class="flex items-center mb-6">
+<button class="mr-4" onclick="history.back()">
+<span class="material-icons text-3xl">arrow_back_ios_new</span>
+</button>
+<h1 class="text-2xl font-bold" id="program-name">Caricamento...</h1>
+</div>
+<h2 class="text-xl font-semibold mb-4 text-gray-300">Seleziona il giorno</h2>
+<div class="space-y-4" id="days-container">
+    <!-- Days will be dynamically inserted here -->
+</div>
+</div>
+<div class="px-4 pb-6 mt-auto">
+<button id="start-workout-button" class="w-full bg-red-500 text-white font-bold py-4 rounded-lg flex items-center justify-center space-x-2 disabled:bg-gray-600" disabled>
+<span class="material-icons">play_arrow</span>
+<span>Inizia Workout</span>
+</button>
+</div>
+
+<script>
+    const programNameEl = document.getElementById('program-name');
+    const daysContainer = document.getElementById('days-container');
+    const startWorkoutButton = document.getElementById('start-workout-button');
+
+    let selectedDayId = null;
+
+    function renderDays(program) {
+        if (!program || !program.training_days || program.training_days.length === 0) {
+            daysContainer.innerHTML = `<p class="text-gray-400">Nessun giorno di allenamento trovato per questo programma.</p>`;
+            return;
+        }
+
+        programNameEl.textContent = program.name;
+        daysContainer.innerHTML = ''; // Clear loading message
+
+        program.training_days.forEach(day => {
+            const dayCard = document.createElement('div');
+            dayCard.className = 'day-card rounded-lg p-4 flex justify-between items-center';
+            dayCard.dataset.dayId = day.id;
+            dayCard.innerHTML = `
+                <div>
+                    <h3 class="text-lg font-bold">${day.name}</h3>
+                    <p class="text-sm text-gray-400">${day.program_exercises.length} esercizi</p>
+                </div>
+                <span class="material-icons text-gray-500 text-3xl radio-icon">radio_button_unchecked</span>
+            `;
+            daysContainer.appendChild(dayCard);
+        });
+    }
+
+    daysContainer.addEventListener('click', (e) => {
+        const clickedCard = e.target.closest('.day-card');
+        if (!clickedCard) return;
+
+        // Remove 'selected' class from all cards
+        document.querySelectorAll('.day-card').forEach(card => {
+            card.classList.remove('selected');
+            card.querySelector('.radio-icon').textContent = 'radio_button_unchecked';
+            card.querySelector('.radio-icon').classList.remove('text-red-500');
+        });
+
+        // Add 'selected' class to the clicked card
+        clickedCard.classList.add('selected');
+        const radioIcon = clickedCard.querySelector('.radio-icon');
+        radioIcon.textContent = 'radio_button_checked';
+        radioIcon.classList.add('text-red-500');
+
+        selectedDayId = clickedCard.dataset.dayId;
+        startWorkoutButton.disabled = false;
+    });
+
+    startWorkoutButton.addEventListener('click', () => {
+        if (selectedDayId) {
+            window.location.href = `liveworkout-cliente.html?dayId=${selectedDayId}`;
+        } else {
+            alert('Per favore, seleziona un giorno per iniziare.');
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await checkSession();
+        const program = await getAssignedWorkoutProgram();
+        renderDays(program);
+    });
+
+</script>
+
+</body></html>
