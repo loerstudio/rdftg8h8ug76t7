@@ -141,7 +141,7 @@ CREATE TABLE chat_messages (
   sender_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   receiver_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
   message_text TEXT NOT NULL,
-  created_at TIMESTAMTz DEFAULT now()
+  created_at TIMESTAMPTZ DEFAULT now()
 );
 
 -- -------------------------------------------------
