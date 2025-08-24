@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Food / Supplement</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #EF4444;
+      --background-color: #000000;
+      --surface-color: #1F2937;
+      --surface-light: #374151;
+      --text-primary: #FFFFFF;
+      --text-secondary: #9CA3AF;
+    }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-primary);
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+    .input-field {
+      @apply bg-[var(--surface-color)] border border-[var(--surface-light)] text-[var(--text-primary)] text-base rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-3;
+    }
+    .label-text {
+      @apply block mb-2 text-sm font-medium text-[var(--text-secondary)];
+    }
+    .custom-select {
+        @apply appearance-none bg-[var(--surface-color)] border border-[var(--surface-light)] text-[var(--text-primary)] text-base rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full p-3;
+    }
+    .select-arrow {
+        @apply pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[var(--text-secondary)];
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-24">
+<div class="p-4">
+<div class="flex items-center mb-6">
+<button class="mr-4">
+<span class="material-icons text-2xl">arrow_back_ios</span>
+</button>
+<h1 class="text-2xl font-bold">Add Food / Supplement</h1>
+</div>
+<div class="space-y-6">
+<div>
+<label class="label-text" for="item-name">Name</label>
+<input class="input-field" id="item-name" placeholder="e.g. Grilled Chicken Breast" type="text"/>
+</div>
+<div>
+<label class="label-text" for="brand-name">Brand (Optional)</label>
+<input class="input-field" id="brand-name" placeholder="e.g. Kirkland Signature" type="text"/>
+</div>
+<div class="flex items-center justify-between">
+<label class="label-text" for="barcode-scanner">Scan Barcode</label>
+<button class="text-[var(--primary-color)]">
+<span class="material-icons text-3xl">qr_code_scanner</span>
+</button>
+</div>
+<div>
+<label class="label-text">Serving Size</label>
+<div class="grid grid-cols-2 gap-4">
+<input class="input-field" id="serving-size-value" placeholder="100" type="number"/>
+<div class="relative">
+<select class="custom-select" id="serving-size-unit">
+<option>g</option>
+<option>ml</option>
+<option>oz</option>
+<option>cup</option>
+<option>tbsp</option>
+</select>
+<div class="select-arrow">
+<span class="material-icons">unfold_more</span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<label class="label-text">Macronutrients per serving</label>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<label class="label-text text-xs" for="protein">Protein (g)</label>
+<input class="input-field" id="protein" placeholder="31" type="number"/>
+</div>
+<div>
+<label class="label-text text-xs" for="carbs">Carbs (g)</label>
+<input class="input-field" id="carbs" placeholder="0" type="number"/>
+</div>
+<div>
+<label class="label-text text-xs" for="fats">Fats (g)</label>
+<input class="input-field" id="fats" placeholder="3.6" type="number"/>
+</div>
+</div>
+</div>
+<div>
+<label class="label-text">Calories</label>
+<div class="relative">
+<input class="input-field pl-10" id="calories" placeholder="165" type="number"/>
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<span class="material-icons text-[var(--text-secondary)]">local_fire_department</span>
+</div>
+</div>
+</div>
+<div>
+<label class="label-text" for="notes">Private Notes</label>
+<textarea class="input-field" id="notes" placeholder="Add private notes, only visible to you..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-[var(--background-color)] border-t border-[var(--surface-color)]">
+<button class="w-full bg-[var(--primary-color)] text-white font-bold py-3 px-4 rounded-lg">
+            Add to Library
+        </button>
+</div>
+
+</body></html>
