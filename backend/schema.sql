@@ -206,7 +206,7 @@ BEGIN
     new.id,
     new.email,
     new.raw_user_meta_data->>'full_name',
-    new.raw_user_meta_data->>'role'
+    COALESCE(new.raw_user_meta_data->>'role', 'client') -- Default to 'client' if role is not provided
   );
   RETURN new;
 END;
