@@ -1,4 +1,28 @@
 -- Supabase Schema for Trainer App
+-- Foolproof Schema for Trainer App
+-- This script first drops all tables to ensure a clean slate, then creates them.
+
+-- -------------------------------------------------
+-- Cleanup Script
+-- -------------------------------------------------
+DROP TABLE IF EXISTS public.workout_logs CASCADE;
+DROP TABLE IF EXISTS public.progress_photos CASCADE;
+DROP TABLE IF EXISTS public.chat_messages CASCADE;
+DROP TABLE IF EXISTS public.meal_items CASCADE;
+DROP TABLE IF EXISTS public.meals CASCADE;
+DROP TABLE IF EXISTS public.food_days CASCADE;
+DROP TABLE IF EXISTS public.food_plans CASCADE;
+DROP TABLE IF EXISTS public.food_library CASCADE;
+DROP TABLE IF EXISTS public.program_exercises CASCADE;
+DROP TABLE IF EXISTS public.training_days CASCADE;
+DROP TABLE IF EXISTS public.training_programs CASCADE;
+DROP TABLE IF EXISTS public.clients CASCADE;
+DROP TABLE IF EXISTS public.profiles CASCADE;
+
+
+-- -------------------------------------------------
+-- Creation Script Starts Here
+-- -------------------------------------------------
 
 -- -------------------------------------------------
 -- Table for Public Profiles
