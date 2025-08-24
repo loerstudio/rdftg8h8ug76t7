@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS public.meals CASCADE;
 DROP TABLE IF EXISTS public.food_days CASCADE;
 DROP TABLE IF EXISTS public.food_plans CASCADE;
 DROP TABLE IF EXISTS public.food_library CASCADE;
+DROP TABLE IF EXISTS public.exercises CASCADE;
 DROP TABLE IF EXISTS public.program_exercises CASCADE;
 DROP TABLE IF EXISTS public.training_days CASCADE;
 DROP TABLE IF EXISTS public.training_programs CASCADE;
