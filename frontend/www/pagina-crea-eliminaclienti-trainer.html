@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manage Clients</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #ef4444;
+            --background-color: #000000;
+            --surface-color: #1f2937;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent-color: #27272a;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .modal-hidden {
+            display: none;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+  </head>
+<body class="pb-24">
+<div class="p-4">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-3xl font-bold">Clients</h1>
+<button class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-lg flex items-center" id="add-client-button">
+<span class="material-icons mr-2">add</span>
+                New Client
+            </button>
+</div>
+<div class="relative mb-6">
+<input class="w-full bg-[var(--surface-color)] border-none rounded-lg pl-10 pr-4 py-2 text-white placeholder-gray-500" placeholder="Search clients..." type="text"/>
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">search</span>
+</div>
+<!-- Client list container -->
+<div class="space-y-4" id="client-list-container">
+<!-- Client items will be dynamically inserted here -->
+<p id="loading-message" class="text-[var(--text-secondary)]">Loading clients...</p>
+</div>
+</div>
+
+<!-- Add Client Modal -->
+<div id="add-client-modal" class="modal-hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    <div class="bg-[var(--surface-color)] p-6 rounded-lg w-full max-w-sm">
+        <h2 class="text-2xl font-bold mb-4">Add New Client</h2>
+        <form id="add-client-form">
+            <div class="mb-4">
+                <label for="client-email" class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Client's Email</label>
+                <input type="email" id="client-email" required class="w-full bg-[var(--accent-color)] border-none rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-[var(--primary-color)]" placeholder="client@example.com">
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button type="button" id="cancel-add-client" class="bg-gray-600 text-white px-4 py-2 rounded-lg">Cancel</button>
+                <button type="submit" class="bg-[var(--primary-color)] text-white px-4 py-2 rounded-lg">Add Client</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2 z-10">
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center text-[var(--primary-color)]" href="#">
+<span class="material-icons">groups</span>
+<span class="block text-xs">Clients</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">article</span>
+<span class="block text-xs">Programs</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">calendar_today</span>
+<span class="block text-xs">Calendar</span>
+</a>
+</div>
+
+<script>
+    const clientListContainer = document.getElementById('client-list-container');
+    const loadingMessage = document.getElementById('loading-message');
+    const addClientButton = document.getElementById('add-client-button');
+    const addClientModal = document.getElementById('add-client-modal');
+    const addClientForm = document.getElementById('add-client-form');
+    const cancelAddClientButton = document.getElementById('cancel-add-client');
+
+    // Function to render clients in the list
+    function renderClients(clients) {
+        clientListContainer.innerHTML = ''; // Clear the list first
+        if (!clients || clients.length === 0) {
+            clientListContainer.innerHTML = `<p class="text-[var(--text-secondary)]">No clients found.</p>`;
+            return;
+        }
+
+        clients.forEach(client => {
+            const clientDiv = document.createElement('div');
+            clientDiv.className = 'bg-[var(--surface-color)] rounded-lg p-4 flex items-center justify-between';
+            clientDiv.innerHTML = `
+                <div class="flex items-center space-x-4">
+                    <img alt="Client profile picture" class="w-12 h-12 rounded-full" src="https://i.pravatar.cc/150?u=${client.id}"/>
+                    <div>
+                        <p class="font-semibold text-lg">${client.full_name || 'N/A'}</p>
+                        <p class="text-sm text-[var(--text-secondary)]">${client.email}</p>
+                    </div>
+                </div>
+                <button class="text-red-500 hover:text-red-400 delete-client-button" data-client-id="${client.id}">
+                    <span class="material-icons">delete</span>
+                </button>
+            `;
+            clientListContainer.appendChild(clientDiv);
+        });
+    }
+
+    // Function to fetch and render clients
+    async function refreshClients() {
+        loadingMessage.style.display = 'block';
+        const clients = await getClients();
+        loadingMessage.style.display = 'none';
+        renderClients(clients);
+    }
+
+    // Modal handling
+    addClientButton.addEventListener('click', () => addClientModal.classList.remove('modal-hidden'));
+    cancelAddClientButton.addEventListener('click', () => addClientModal.classList.add('modal-hidden'));
+
+    // Form submission for adding a new client
+    addClientForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const emailInput = document.getElementById('client-email');
+        const result = await addClient(emailInput.value);
+        if (result && result.status === 'success') {
+            emailInput.value = '';
+            addClientModal.classList.add('modal-hidden');
+            await refreshClients();
+        }
+    });
+
+    // Event delegation for deleting clients
+    clientListContainer.addEventListener('click', async (e) => {
+        const deleteButton = e.target.closest('.delete-client-button');
+        if (deleteButton) {
+            const clientId = deleteButton.dataset.clientId;
+            const clientName = deleteButton.closest('.bg-\\[var\\(--surface-color\\)\\]').querySelector('.font-semibold').textContent;
+
+            if (confirm(`Are you sure you want to remove ${clientName}?`)) {
+                const success = await removeClient(clientId);
+                if (success) {
+                    await refreshClients();
+                }
+            }
+        }
+    });
+
+    // Initial page load
+    document.addEventListener('DOMContentLoaded', async () => {
+        await checkSession();
+        await refreshClients();
+    });
+
+</script>
+
+</body></html>

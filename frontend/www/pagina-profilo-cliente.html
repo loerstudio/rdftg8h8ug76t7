@@ -6,6 +6,10 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
 <style type="text/tailwindcss">
         :root {
             --background-dark: #121212;
@@ -69,8 +73,8 @@
 <span class="material-icons text-sm">edit</span>
 </button>
 </div>
-<h2 class="text-xl font-semibold">Mario Rossi</h2>
-<p class="text-[var(--text-secondary)] text-sm">mario.rossi@email.com</p>
+<h2 class="text-xl font-semibold" id="user-fullname">Caricamento...</h2>
+<p class="text-[var(--text-secondary)] text-sm" id="user-email">...</p>
 </div>
 <div class="grid grid-cols-3 gap-4 mb-8 bg-[var(--background-light)] p-4 rounded-xl">
 <div class="profile-stat">
@@ -117,10 +121,40 @@
 </div>
 </div>
 <div class="mt-8">
-<button class="w-full flex items-center justify-center space-x-2 py-3 text-lg text-[var(--primary-accent)]">
+<button class="w-full flex items-center justify-center space-x-2 py-3 text-lg text-[var(--primary-accent)]" id="logout-button">
 <span class="material-icons">logout</span>
 <span>Logout</span>
 </button>
 </div>
 </div>
+
+<script>
+    const fullNameElement = document.getElementById('user-fullname');
+    const emailElement = document.getElementById('user-email');
+    const logoutButton = document.getElementById('logout-button');
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        // 1. Check if user is logged in
+        const session = await checkSession();
+        if (!session) return; // checkSession handles redirection
+
+        // 2. Fetch user profile
+        const profile = await getUserProfile();
+
+        // 3. Update the UI
+        if (profile) {
+            fullNameElement.textContent = profile.full_name || 'Utente';
+            emailElement.textContent = profile.email;
+        } else {
+            fullNameElement.textContent = 'Profilo non trovato';
+            const user = await getCurrentUser();
+            emailElement.textContent = user ? user.email : 'Nessuna email';
+        }
+    });
+
+    logoutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        signOut();
+    });
+</script>
 </body></html>

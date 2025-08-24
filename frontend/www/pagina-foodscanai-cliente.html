@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Food Scan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #EF4444;--background-color: #000000;
+            --surface-color: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A3A3A3;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Helvetica Neue', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .hidden { display: none; }
+    </style>
+  </head>
+<body class="bg-black text-white">
+<div class="flex-grow flex flex-col">
+<header class="p-4 flex justify-between items-center">
+<button class="text-white" onclick="history.back()">
+<span class="material-icons text-3xl">close</span>
+</button>
+<button class="text-white">
+<span class="material-icons text-3xl">help_outline</span>
+</button>
+</header>
+<main class="flex-grow flex flex-col items-center justify-center p-4 text-center">
+<h1 class="text-2xl font-bold mb-2">Scansiona il tuo pasto</h1>
+<p class="text-[var(--text-secondary)] mb-8">Inquadra il cibo al centro</p>
+<div id="frame" class="w-full aspect-square bg-gray-800 rounded-3xl flex items-center justify-center mb-8 relative overflow-hidden">
+    <img id="image-preview" src="" class="w-full h-full object-cover hidden" alt="Image preview"/>
+    <div id="placeholder-text" class="text-gray-500">
+        <span class="material-icons text-6xl">photo_camera</span>
+    </div>
+    <div id="loading-spinner" class="hidden w-16 h-16 border-4 border-dashed rounded-full animate-spin border-red-500"></div>
+</div>
+<div class="flex items-center justify-around w-full px-4">
+    <button id="gallery-button" class="flex flex-col items-center text-[var(--text-secondary)]">
+        <span class="material-icons text-4xl">photo_library</span>
+        <span class="text-sm mt-1">Galleria</span>
+    </button>
+    <button id="scan-button" class="w-20 h-20 bg-gray-600 rounded-full flex items-center justify-center shadow-lg" disabled>
+        <span class="material-icons text-white text-5xl">search</span>
+    </button>
+    <button id="flash-button" class="flex flex-col items-center text-[var(--text-secondary)]">
+        <span class="material-icons text-4xl">flash_on</span>
+        <span class="text-sm mt-1">Flash</span>
+    </button>
+</div>
+<input type="file" id="image-input" accept="image/*" class="hidden">
+</main>
+</div>
+
+<script>
+    const imageInput = document.getElementById('image-input');
+    const galleryButton = document.getElementById('gallery-button');
+    const scanButton = document.getElementById('scan-button');
+    const imagePreview = document.getElementById('image-preview');
+    const placeholderText = document.getElementById('placeholder-text');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    let selectedFile = null;
+
+    galleryButton.addEventListener('click', () => imageInput.click());
+    // The main button can also trigger the file input if no image is selected yet
+    scanButton.addEventListener('click', () => {
+        if (!selectedFile) {
+            imageInput.click();
+        }
+    });
+
+    imageInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            selectedFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.classList.remove('hidden');
+                placeholderText.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+            scanButton.disabled = false;
+            scanButton.classList.replace('bg-gray-600', 'bg-red-500');
+        }
+    });
+
+    scanButton.addEventListener('click', async () => {
+        if (!selectedFile) return;
+
+        loadingSpinner.classList.remove('hidden');
+        imagePreview.classList.add('hidden');
+        scanButton.disabled = true;
+
+        // Convert file to base64
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onloadend = async () => {
+            const base64String = reader.result.split(',')[1];
+
+            try {
+                const { data, error } = await supabase.functions.invoke('food-scan', {
+                    body: { image: base64String },
+                });
+
+                if (error) throw error;
+
+                // Store result and redirect to success page
+                localStorage.setItem('foodScanResult', JSON.stringify(data));
+                window.location.href = 'outputsuccesso-foodscanai-cliente.html';
+
+            } catch (error) {
+                console.error('Error invoking food-scan function:', error);
+                // Redirect to error page
+                window.location.href = 'output-errato-foodaiscan-cliente.html';
+            }
+        };
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await checkSession();
+    });
+</script>
+
+</body></html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Supabase and Auth Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabaseClient.js"></script>
+<script src="./js/auth.js"></script>
+<script src="./js/api.js"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #ef4444;
+            --background-color: #000000;
+            --surface-color: #1f2937;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent-color: #27272a;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+  </head>
+<body class="pb-24">
+<div class="p-4">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-3xl font-bold">Chat</h1>
+<button class="text-white">
+<span class="material-icons">search</span>
+</button>
+</div>
+<div class="space-y-2" id="chat-list-container">
+    <p id="loading-clients">Loading chats...</p>
+    <!-- Chat list will be dynamically inserted here -->
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-700 flex justify-around items-center py-2 z-10">
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">home</span>
+<span class="block text-xs">Home</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">groups</span>
+<span class="block text-xs">Clients</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">article</span>
+<span class="block text-xs">Programs</span>
+</a>
+<a class="text-center text-[var(--primary-color)]" href="#">
+<span class="material-icons">chat</span>
+<span class="block text-xs">Chat</span>
+</a>
+<a class="text-center text-[var(--text-secondary)]" href="#">
+<span class="material-icons">calendar_today</span>
+<span class="block text-xs">Calendar</span>
+</a>
+</div>
+
+<script>
+    const chatListContainer = document.getElementById('chat-list-container');
+    const loadingClients = document.getElementById('loading-clients');
+
+    function renderClientList(clients) {
+        chatListContainer.innerHTML = '';
+        if (!clients || clients.length === 0) {
+            chatListContainer.innerHTML = `<p class="text-[var(--text-secondary)]">You have no clients to chat with.</p>`;
+            return;
+        }
+
+        clients.forEach(client => {
+            const clientLink = document.createElement('a');
+            clientLink.href = `sezionechat-trainer.html?clientId=${client.id}`;
+            clientLink.className = 'flex items-center space-x-3 p-2 rounded-lg hover:bg-[var(--surface-color)] cursor-pointer';
+            clientLink.innerHTML = `
+                <img alt="avatar" class="w-12 h-12 rounded-full object-cover" src="https://i.pravatar.cc/150?u=${client.id}"/>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <p class="font-semibold">${client.full_name || 'N/A'}</p>
+                    </div>
+                    <p class="text-sm text-[var(--text-secondary)]">Click to chat</p>
+                </div>
+            `;
+            chatListContainer.appendChild(clientLink);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await checkSession();
+        loadingClients.style.display = 'block';
+        const clients = await getClients();
+        loadingClients.style.display = 'none';
+        renderClientList(clients);
+    });
+</script>
+
+</body></html>
